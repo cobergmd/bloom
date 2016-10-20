@@ -4,13 +4,13 @@
   "description": "A module for dictionary matching using a bloom filter",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "tape bloom/**/*.test.js"
   },
   "keywords": [
     "bloom"
   ],
-  "author": "cjo",
-  "license": "ISC",
+  "author": "Craig Oberg",
+  "license": "MIT",
   "devDependencies": {
     "tape": "^4.6.2"
   }
