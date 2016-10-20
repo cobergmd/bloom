@@ -4,7 +4,7 @@
   "description": "A module for dictionary matching using a bloom filter",
   "main": "index.js",
   "scripts": {
-    "test": "tape bloom/**/*.test.js"
+    "test": "tape bloom/**/*.test.js | tap-spec"
   },
   "keywords": [
     "bloom"
@@ -12,6 +12,7 @@
   "author": "Craig Oberg",
   "license": "MIT",
   "devDependencies": {
+    "tap-spec": "^4.1.1",
     "tape": "^4.6.2"
   }
 }
