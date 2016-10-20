@@ -1,0 +1,17 @@
+{
+  "name": "bloom",
+  "version": "1.0.0",
+  "description": "A module for dictionary matching using a bloom filter",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "bloom"
+  ],
+  "author": "cjo",
+  "license": "ISC",
+  "devDependencies": {
+    "tape": "^4.6.2"
+  }
+}
