@@ -1,7 +1,10 @@
 var test = require('tape');
-var bloom = require('bloom');
+var bloom = require('./bloom');
+
+let dict = new bloom();
 
 test('add a word to the dictionary', function (t) {
-    bloom.addWord('apple');
-    t.equal(bloom.wordCount() === 1);
+    dict.add('apple');
+    t.equal(dict.exists('apple'), true);
+    t.end();
 });
