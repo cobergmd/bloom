@@ -35,7 +35,7 @@ Bloom.prototype.toString = function () {
             result[i] = '-';
         }
     }
-    return result;
+    return result.join('');
 }
 
 // Naive 32 bit implementation of djb2 

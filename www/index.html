@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Bloom Filter Demo">
+    <title>Bloom Filter Demo</title>
+    <link rel="stylesheet" href="./bloom.css">
+</head>
+<body>
+    <main>
+        Value: <input id="inputValue" type="text" />
+        <button type="button" onclick="submitRequest()">Submit</button>
+        <div id="arrayDisplay"></div>
+    </main>
+    <script src="./json2.js"></script>
+    <script>
+        function submitRequest() {
+            var word = document.getElementById('inputValue').value;
+            var parms = {
+                "word": word
+            }
+            var xhr;
+            if (window.XMLHttpRequest) { 
+                xhr = new XMLHttpRequest();
+            } else {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            if (xhr != null) {
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status !== 200) {
+                            // error
+                        }
+                        else {
+                            document.getElementById('arrayDisplay').innerHTML = xhr.responseText;                                
+                        }
+                    }
+                };
+                xhr.open("POST", "http://localhost:9292/add");
+                xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+                xhr.send(JSON.stringify(parms));
+            }
+        }
+    </script>
+</body>
+</html>
