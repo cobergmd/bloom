@@ -1,0 +1,14 @@
+html {
+  font-family: sans-serif;
+  -webkit-user-select: none; /* disable selection */
+  -webkit-user-drag: none; /* disable dragging */
+  cursor: default; /* use default cursor */
+}
+
+body {
+  margin: 20; /* remove default margin */
+}
+
+.section {
+    margin-bottom: 20px;
+}

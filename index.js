@@ -15,7 +15,7 @@ app.post('/add', function(request, response) {
 });
 
 app.post('/exists', function(request, response) {
-    response.send(dict.exits(request.body.value));
+    response.send(dict.exists(request.body.word));
 });
 
 app.listen(app.get('port'), function() {
