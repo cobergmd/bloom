@@ -1,15 +1,41 @@
 'use strict';
 
-function Bloom() {
-    this.words = [];
+function Bloom(size, count) {
+    this.filterSize = size || 128;
+    this.hashCount = count || 5;
+    this.bitArray = [];
+    for (var i = 0; i < this.filterSize; i++) {
+        this.bitArray[i] = false;
+    }
 }
 
 Bloom.prototype.add = function (word) {
-    this.words.push(word);
+    var hash = this.hash(word);
+    for (var i = 0; i < this.hashCount; i++) {
+        this.bitArray[this.doubleHash(i, hash[0], hash[1])] = true;
+    }
 }
 
 Bloom.prototype.exists = function (word) {
-    return (this.words.includes(word) > 0);
+    var hash = this.hash(word);
+    for (var i = 0; i < this.hashCount; i++) {
+        if (this.bitArray[this.doubleHash(i, hash[0], hash[1])] === true) {
+            return true;
+        }
+    }
+    return false;
+}
+
+Bloom.prototype.toString = function () {
+    var result = [];
+    for (var i = 0; i < this.filterSize; i++) {
+        if (this.bitArray[i] === true) {
+            result[i] = 'x';
+        } else {
+            result[i] = '-';
+        }
+    }
+    return result;
 }
 
 // Naive 32 bit implementation of djb2 
@@ -32,8 +58,8 @@ Bloom.prototype.hash = function (word) {
 }
 
 // https://en.wikipedia.org/wiki/Double_hashing
-Bloom.prototype.doubleHash = function (count, hash1, hash2, size) {
-    return (hash1 + count * hash2) % size;
+Bloom.prototype.doubleHash = function (count, hash1, hash2) {
+    return (hash1 + count * hash2) % this.filterSize;
 }
 
 module.exports = Bloom;

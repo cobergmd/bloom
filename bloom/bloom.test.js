@@ -5,6 +5,7 @@ let dict = new bloom();
 
 test('add a word to the dictionary', function(t) {
     dict.add('apple');
+    t.comment('ARRAY: ' + dict.toString());
     t.equal(dict.exists('apple'), true);
     t.end();
 });
@@ -27,7 +28,7 @@ test('hash a string value', function(t) {
     t.end();
 });
 
-test('generate additional hashes', function(t) {
+test('double hash a value', function(t) {
     var hash = dict.hash('Supercalifragilisticexpialidocious');
     var bloom = dict.doubleHash(1, hash[0], hash[1], 128);
     t.equal(bloom, dict.doubleHash(1, hash[0], hash[1], 128));
