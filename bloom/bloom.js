@@ -12,14 +12,14 @@ function Bloom(size, count) {
 Bloom.prototype.add = function (word) {
     var hash = this.hash(word);
     for (var i = 0; i < this.hashCount; i++) {
-        this.bitArray[this.doubleHash(i, hash[0], hash[1])] = true;
+        this.bitArray[this.getSlot(i, hash)] = true;
     }
 }
 
 Bloom.prototype.exists = function (word) {
     var hash = this.hash(word);
     for (var i = 0; i < this.hashCount; i++) {
-        if (this.bitArray[this.doubleHash(i, hash[0], hash[1])] === true) {
+        if (this.bitArray[this.getSlot(i, hash)] === true) {
             return true;
         }
     }
@@ -57,9 +57,10 @@ Bloom.prototype.hash = function (word) {
     return hashes;
 }
 
-// https://en.wikipedia.org/wiki/Double_hashing
-Bloom.prototype.doubleHash = function (count, hash1, hash2) {
-    return (hash1 + count * hash2) % this.filterSize;
+// Return the corresponding bloom filter slot for the hashed value 
+Bloom.prototype.getSlot = function (count, hash) {
+    // https://en.wikipedia.org/wiki/Double_hashing
+    return (hash[0] + count * hash[1]) % this.filterSize;
 }
 
 module.exports = Bloom;
