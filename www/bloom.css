@@ -1,14 +1,13 @@
 html {
   font-family: sans-serif;
-  -webkit-user-select: none; /* disable selection */
-  -webkit-user-drag: none; /* disable dragging */
-  cursor: default; /* use default cursor */
+  cursor: default; 
 }
-
 body {
-  margin: 20; /* remove default margin */
+  margin: 20;
 }
-
 .section {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+}
+#sizeValue, #hashValue {
+    width: 50px;
 }

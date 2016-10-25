@@ -9,6 +9,11 @@ app.use(express.static(__dirname + '/www'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.post('/new', function(request, response) {
+    dict = new bloom(request.body.size, request.body.hashes);
+    response.send(dict.toString());
+});
+
 app.post('/add', function(request, response) {
     dict.add(request.body.word);
     response.send(dict.toString());

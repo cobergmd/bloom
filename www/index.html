@@ -9,6 +9,11 @@
 <body>
     <main>
         <h2>Dictionary with Bloom Filter</h2>
+        <div class="section">
+            Filter Size: <input id="sizeValue" type="text" value="128" />
+            Hash Count: <input id="hashValue" type="text" value="5" />
+            <button type="button" onclick="initFilter()">Initialize New Dictionary</button>
+        </div>
         <div class="section">Entry: <input id="inputValue" type="text" />
             <button type="button" onclick="addRequest()">Add</button>
             <div id="arrayDisplay"></div>
@@ -29,6 +34,30 @@
             }
             return xhr;
         }
+        function initFilter() {
+            var size = document.getElementById('sizeValue').value;
+            var hash = document.getElementById('hashValue').value;
+            var parms = {
+                "size": size,
+                "hashes": hash
+            }
+            var xhr = getXhr();
+            if (xhr != null) {
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status !== 200) {
+                            // error
+                        } else {
+                            document.getElementById('arrayDisplay').innerHTML = xhr.responseText;   
+                            document.getElementById('inputValue').value = '';                             
+                        }
+                    }
+                };
+                xhr.open("POST", "http://localhost:9292/new");
+                xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+                xhr.send(JSON.stringify(parms));
+            }
+        }
         function existRequest() {
             var word = document.getElementById('checkValue').value;
             var parms = {
@@ -44,11 +73,11 @@
                             var word = document.getElementById('checkValue').value;
                             if (xhr.responseText === 'true') {
                                 var result = document.getElementById('existsDisplay').innerHTML = 
-                                     word + ' is probably in the dictionary.';
+                                     '<b>' + word + '</b> is probably in the dictionary.';
                                 document.getElementById('checkValue').value = '';   
                             } else {
                                 var result = document.getElementById('existsDisplay').innerHTML = 
-                                     word + ' is not in the dictionary.';
+                                     '<b>' + word + '</b> is not in the dictionary.';
                                 document.getElementById('checkValue').value = '';   
                             }
                         }
@@ -82,6 +111,7 @@
                 xhr.send(JSON.stringify(parms));
             }
         }
+        initFilter();
     </script>
 </body>
 </html>
