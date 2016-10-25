@@ -22,23 +22,22 @@
             "outFiles": []
         },
         {
-            "name": "Attach",
+            "name": "Launch Tests",
             "type": "node",
-            "request": "attach",
-            "port": 5858,
-            "address": "localhost",
-            "restart": false,
-            "sourceMaps": false,
-            "outFiles": [],
-            "localRoot": "${workspaceRoot}",
-            "remoteRoot": null
-        },
-        {
-            "name": "Attach to Process",
-            "type": "node",
-            "request": "attach",
-            "processId": "${command.PickProcess}",
-            "port": 5858,
+            "request": "launch",
+            "program": "${workspaceRoot}/bloom/bloom.test.js",
+            "stopOnEntry": false,
+            "args": ["bloom/**/*.test.js"],
+            "cwd": "${workspaceRoot}",
+            "preLaunchTask": null,
+            "runtimeExecutable": null,
+            "runtimeArgs": [
+                "--nolazy"
+            ],
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "console": "internalConsole",
             "sourceMaps": false,
             "outFiles": []
         }
