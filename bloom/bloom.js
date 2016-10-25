@@ -15,7 +15,7 @@ function Bloom(size, count) {
     }
 }
 
-// Add a string value to the dictionary
+// Add a string value to the filter
 Bloom.prototype.add = function (word) {
     var hash = this.hash(word);
     for (var i = 0; i < this.hashCount; i++) {
