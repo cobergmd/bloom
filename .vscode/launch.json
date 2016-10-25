@@ -25,7 +25,7 @@
             "name": "Launch Tests",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/bloom/bloom.test.js",
+            "program": "${workspaceRoot}/bloom/wordlist.test.js",
             "stopOnEntry": false,
             "args": ["bloom/**/*.test.js"],
             "cwd": "${workspaceRoot}",

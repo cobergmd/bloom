@@ -1,35 +1,41 @@
 'use strict';
 
 var Bloom = require('./bloom');
-var readline = require('readline');
 var fs = require('fs');
 
+// This node module loads a large list of words into memory and maps each one
+// in a bloom filter.  The getWord() method can be called to see if additional 
+// words are in the list and checks if positive hits are valid.
 function WordList() {
-    this.words = [];
+    this.words = {};
     this.wordFile = "./bloom/words.txt";
     this.filter = new Bloom();
+    this.count = 0;
 
-    var rdr = readline.createInterface({
-        input: fs.createReadStream(this.wordFile)
-    });
-    var that = this;
-    rdr.on('line', function(line) {
-        that.filter.add(line);
-        that.words[that.filter.hash(line)] = line;
-    })
+    fs.readFileSync(this.wordFile)
+        .toString()
+        .split('\r\n')
+        .forEach((line) => {
+            this.filter.add(line);
+            this.words[this.filter.hash(line).join('')] = line;
+            this.count++;
+        });
+}
+
+WordList.prototype.wordCount = function() {
+    return this.count;
 }
 
 WordList.prototype.getWord = function(word) {
     var result = {
-        word: word,
+        value: word,
         inList: false,
         falsePositive: false
     };
     if (this.filter.exists(word)) {
         result.inList = true;
-        // perform "expensive" lookup
-        if (this.words[this.filter.hash(word)]) {
-            // false positive
+        // confirm the word is in the "cache", else it's a false positive
+        if (!this.words[this.filter.hash(word).join('')]) {
             result.falsePositive = true;
         }
     } 
