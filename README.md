@@ -11,7 +11,7 @@ Install
 You'll need [Node.js](https://nodejs.org) installed on your computer in order to install and run this app.
 
 ```sh
-git clone https://github.com/xxxxxxxxx/bloom
+git clone https://github.com/cobergmd/bloom
 cd bloom
 npm install
 npm start 
