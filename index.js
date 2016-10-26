@@ -27,7 +27,14 @@ app.post('/exists', function(request, response) {
 
 app.post('/load', function(request, response) {
     wordList = new WordList();
-    response.send("dict.exists(request.body.word)");
+    response.send(wordList.wordCount() + " words loaded.");
+});
+
+app.post('/random', function(request, response) {
+    var result = wordList.getWord(request.body.word);
+    response.send('<b>' + result.value + '</b>' + 
+        (result.inList ? ' is probably ' : ' is not ') + ' in the list.  ' +
+        (result.falsePositive ? '<font color="red">False Postive</font>' : ''));
 });
 
 app.listen(app.get('port'), function() {

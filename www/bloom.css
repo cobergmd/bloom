@@ -8,6 +8,6 @@ body {
 .section {
     margin-bottom: 30px;
 }
-#sizeValue, #hashValue {
+#sizeValue, #hashValue, #randomSizeValue {
     width: 50px;
 }

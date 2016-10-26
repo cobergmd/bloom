@@ -8,7 +8,8 @@
 </head>
 <body>
     <main>
-        <h2>Dictionary with Bloom Filter</h2>
+        <h2>Bloom Filter Kata</h2>
+        <h3>Bloom Filter Generator and Loader</h3>
         <div class="section">
             Filter Size: <input id="sizeValue" type="text" value="128" />
             Hash Count: <input id="hashValue" type="text" value="5" />
@@ -22,6 +23,18 @@
             <button type="button" onclick="existRequest()">Check</button>
             <div id="existsDisplay"></div>
         </div>
+        <h3>Random Word Search</h3>
+        <p>Load a server-side word list of 235,886 words and then search it for 
+            random "words" in an effort to detect false positives.</p>
+        <div class="section">
+            <p>
+                <button type="button" id="ListInitButton" onclick="initWordList()">Initialize Wordlist</button>
+                <div id="ListInitStatus"></div>
+            </p> 
+            Random Word Size: <input id="randomSizeValue" type="text" value="5" />
+            <button type="button" onclick="randomRequest()">Generate and Check</button>
+            <div id="randomDisplay"></div>
+        </div>
     </main>
     <script src="./json2.js"></script>
     <script>
@@ -34,6 +47,55 @@
             }
             return xhr;
         }
+        function randomWord(length) {
+            var result = '';
+            var alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            for (var i = 0; i < length; i++) {
+                result += alpha.charAt(Math.floor(Math.random() * alpha.length));
+            }
+            return result;
+        }
+        function randomRequest() {
+            var wordLength = document.getElementById('randomSizeValue').value;
+            var newWord = randomWord(wordLength);
+            var parms = {
+                "word": newWord
+            }
+            var xhr = getXhr();
+            if (xhr != null) {
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status !== 200) {
+                            // error
+                        } else {
+                            document.getElementById('randomDisplay').innerHTML = xhr.responseText;   
+                            document.getElementById('inputValue').value = '';                             
+                        }
+                    }
+                };
+                xhr.open("POST", "http://localhost:9292/random");
+                xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+                xhr.send(JSON.stringify(parms));
+            }
+        }
+        function initWordList() {
+            var xhr = getXhr();
+            if (xhr != null) {
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status !== 200) {
+                            // error
+                        } else {
+                            document.getElementById('ListInitStatus').innerHTML = xhr.responseText;   
+                            document.getElementById('inputValue').value = '';                             
+                        }
+                    }
+                };
+                xhr.open("POST", "http://localhost:9292/load");
+                xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+                xhr.send(JSON.stringify());
+            }
+        }    
         function initFilter() {
             var size = document.getElementById('sizeValue').value;
             var hash = document.getElementById('hashValue').value;

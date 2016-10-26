@@ -25,6 +25,13 @@ test('confirm known word exists in word list', function(t) {
     t.end();
 });
 
+test('confirm unknown words do not exist in word list', function(t) {
+    var result = list.getWord('dGqkobV');
+    t.notOk(result.inList, 'word was not in list');
+    t.notOk(result.falsePositive, 'word is not false positive');
+    t.end();
+});
+
 test('testing for a false positive rate of less than 10 percent', function(t) {
     var hits = 0;
     for (var i = 0; i < someWords.length; i++) {
