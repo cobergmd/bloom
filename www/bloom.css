@@ -5,9 +5,25 @@ html {
 body {
   margin: 20;
 }
+h3 {
+    background-color: lightsteelblue;
+    padding: 5px;
+}
 .section {
     margin-bottom: 30px;
 }
+.feature {
+    border: 1px solid black;
+    margin: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
 #sizeValue, #hashValue, #randomSizeValue {
     width: 50px;
+}
+#arrayDisplay {
+    font-family: Courier New, Courier, monospace;
+    font-size: 8pt;
+    padding-top: 10px;
 }

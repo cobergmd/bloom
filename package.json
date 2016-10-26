@@ -4,7 +4,8 @@
   "description": "A module for dictionary matching using a bloom filter",
   "main": "index.js",
   "scripts": {
-    "test": "tape bloom/**/*.test.js | tap-spec"
+    "test": "tape bloom/**/*.test.js | tap-spec",
+    "start": "node ./index.js"
   },
   "keywords": [
     "bloom"
